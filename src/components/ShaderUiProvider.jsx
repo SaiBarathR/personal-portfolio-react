@@ -2,16 +2,15 @@ import { ShaderGradientCanvas, ShaderGradient } from 'shadergradient'
 import * as reactSpring from '@react-spring/three'
 import * as drei from '@react-three/drei'
 import * as fiber from '@react-three/fiber'
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo } from 'react'
 import { colorSets } from '../utils/constants'
 import { ModeContext } from '../context/ModeContext'
 
 
 export default function ShaderUiProvider() {
-    const { mode } = useContext(ModeContext);
-    const [grain, setGrain] = useState(true)
-    const colors = useMemo(() => colorSets[mode][grain ? 'grain' : 'noGrain'], [mode, grain]);
-    const onChangeGrain = () => setGrain(prev => !prev);
+    const { theme, grain, dispatch } = useContext(ModeContext);
+    const colors = useMemo(() => colorSets[theme][grain ? 'grain' : 'noGrain'], [theme, grain]);
+    const onChangeGrain = () => dispatch({ type: 'TOGGLE_GRAIN' });
 
     return (
         <div className='fixed top-0 left-0 p-10 rounded-full w-full h-[100%]'>
@@ -26,7 +25,7 @@ export default function ShaderUiProvider() {
                     // zIndex: -1,                    
                     pointerEvents: 'none',
                     border: '1px solid',
-                    borderColor: mode === 'dark' ? '#fff' : '#000000',
+                    borderColor: theme === 'dark' ? '#fff' : '#000000',
                 }}
             >
                 <ShaderGradient
