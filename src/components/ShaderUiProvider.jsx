@@ -8,9 +8,8 @@ import { ModeContext } from '../context/ModeContext'
 
 
 export default function ShaderUiProvider() {
-    const { theme, grain, dispatch } = useContext(ModeContext);
+    const { theme, grain } = useContext(ModeContext);
     const colors = useMemo(() => colorSets[theme][grain ? 'grain' : 'noGrain'], [theme, grain]);
-    const onChangeGrain = () => dispatch({ type: 'TOGGLE_GRAIN' });
 
     return (
         <div className='fixed top-0 left-0 p-10 rounded-full w-full h-[100%]'>
