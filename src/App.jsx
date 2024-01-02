@@ -10,8 +10,8 @@ function App() {
 
   return (
     <div className={theme === 'dark' ? 'dark bg-black text-white' : 'bg-white text-black h-screen w-full'}>
-      <Sidebar />
       <ShaderUiProvider />
+      <Sidebar />
     </div>
   )
 }
