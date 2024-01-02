@@ -3,13 +3,14 @@ import { ModeContext } from './ModeContext';
 import { modeReducer } from '../reducers/modeReducer';
 
 export function ModeProvider({ children }) {
-    const savedMode = localStorage.getItem('mode');
+    const savedMode = localStorage.getItem('theme');
+    const savedGrain = localStorage.getItem('grain') !== null ? localStorage.getItem('grain') === 'true' : true;
     const preferredMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    const [mode, dispatch] = useReducer(modeReducer, savedMode || preferredMode);
+    const [state, dispatch] = useReducer(modeReducer, { theme: savedMode || preferredMode, grain: savedGrain });
 
     useEffect(() => {
         const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        const changeHandler = () => dispatch({ type: 'SET_MODE', mode: mediaQuery.matches ? 'dark' : 'light' });
+        const changeHandler = () => dispatch({ type: 'SET_MODE', theme: mediaQuery.matches ? 'dark' : 'light' });
 
         mediaQuery.addListener(changeHandler);
 
@@ -18,8 +19,16 @@ export function ModeProvider({ children }) {
         };
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem('theme', state.theme);
+    }, [state.theme]);
+
+    useEffect(() => {
+        localStorage.setItem('grain', state.grain);
+    }, [state.grain]);
+
     return (
-        <ModeContext.Provider value={{ mode, dispatch }}>
+        <ModeContext.Provider value={{ ...state, dispatch }}>
             {children}
         </ModeContext.Provider>
     );
