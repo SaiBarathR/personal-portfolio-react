@@ -5,8 +5,9 @@ import './App.css'
 
 function App() {
 
-  const { theme, dispatch } = useContext(ModeContext);
+  const { theme, grain, dispatch } = useContext(ModeContext);
   const toggleMode = () => dispatch({ type: 'TOGGLE_MODE' });
+  const toggleGrain = () => dispatch({ type: 'TOGGLE_GRAIN' });
 
   return (
     <div className={theme === 'dark' ? 'dark bg-black text-white' : 'bg-white text-black h-screen w-full'}>
@@ -14,6 +15,10 @@ function App() {
         <button onClick={toggleMode} className='  rounded-md z-[1000]'>
           theme : {theme}
         </button>
+        <button onClick={toggleGrain} className='  rounded-md z-[1000]'>
+          grain : {grain ? 'on' : 'off'}
+        </button>
+
       </div>
       <ShaderUiProvider />
     </div>
