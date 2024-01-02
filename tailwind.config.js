@@ -1,5 +1,3 @@
-import { nextui } from "@nextui-org/react";
-
 export default {
   content: [
     "./index.html",
@@ -9,7 +7,6 @@ export default {
   theme: {
     extend: {},
   },
-  darkMode: "class",
-  plugins: [nextui()],
+  darkMode: "class"
 }
 
