@@ -82,6 +82,14 @@ body {
     background: black !important;
 }
 
+.font-NeueMontreal {
+    font-family: 'Neue Montreal', sans-serif;
+}
+
+.font-NeueMontrealMono {
+    font-family: 'Neue Montreal Mono', monospace;
+}
+
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
