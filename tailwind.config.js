@@ -5,7 +5,21 @@ export default {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      'default': ['"Neue Montreal"', 'sans-serif'],
+      'monospace': ['"Neue Montreal Monospace"', 'monospace'],
+    },
+    extend: {
+      fontSize: {
+        'default': '14px',
+      },
+      fontWeight: {
+        'default': '400'
+      },
+      lineHeight: {
+        'default': '14px',
+      }
+    }
   },
   darkMode: "class"
 }
