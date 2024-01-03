@@ -6,13 +6,15 @@ import Sidebar from './components/Sidebar';
 
 function App() {
 
-  const { theme } = useContext(ModeContext);
+  const { theme, monospace } = useContext(ModeContext);
 
   return (
-    <div className={theme === 'dark' ? 'dark bg-black text-white' : 'bg-white text-black h-screen w-full'}>
-      <ShaderUiProvider />
-      <Sidebar />
-    </div>
+    <div className={theme === 'dark' ? 'dark' : ''}>
+      <div className={`bg-white text-black dark:bg-black dark:text-white h-screen w-full font-${monospace ? 'monospace' : 'default'}`}>
+        <ShaderUiProvider />
+        <Sidebar />
+      </div>
+    </div >
   )
 }
 
