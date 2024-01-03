@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className={theme === 'dark' ? 'dark' : ''}>
-      <div className={`bg-white text-black dark:bg-black dark:text-white h-screen w-full font-${monospace ? 'monospace' : 'default'}`}>
+      <div className={`bg-white text-black dark:bg-black dark:text-white h-screen w-full text-default ${monospace ? 'font-NeueMontrealMono' : 'font-NeueMontreal'}`}>
         <ShaderUiProvider />
         <Sidebar />
       </div>
