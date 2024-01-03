@@ -2,11 +2,81 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+    height: 100%;
+}
+
+/* Neue Montreal Font */
+
+@font-face {
+    font-family: 'Neue Montreal';
+    src: url('/fonts/NeueMontreal/PPNeueMontreal-Thin.otf') format('opentype');
+    font-weight: 200;
+    /* Thin */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Montreal';
+    src: url('/fonts/NeueMontreal/PPNeueMontreal-Book.otf') format('opentype');
+    font-weight: 400;
+    /* Book */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Montreal';
+    src: url('/fonts/NeueMontreal/PPNeueMontreal-Medium.otf') format('opentype');
+    font-weight: 530;
+    /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Montreal';
+    src: url('/fonts/NeueMontreal/PPNeueMontreal-Bold.otf') format('opentype');
+    font-weight: 800;
+    /* Bold */
+    font-style: normal;
+}
+
+/* Neue Montreal Monospace Font */
+
+@font-face {
+    font-family: 'Neue Montreal Mono';
+    src: url('/fonts/NeueMontrealMono/PPNeueMontrealMono-Thin.otf') format('opentype');
+    font-weight: 200;
+    /* Thin */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Montreal Mono';
+    src: url('/fonts/NeueMontrealMono/PPNeueMontrealMono-Regular.otf') format('opentype');
+    font-weight: 400;
+    /* Regular */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Montreal Mono';
+    src: url('/fonts/NeueMontrealMono/PPNeueMontrealMono-Medium.otf') format('opentype');
+    font-weight: 530;
+    /* Medium */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Neue Montreal Mono';
+    src: url('/fonts/NeueMontrealMono/PPNeueMontrealMono-Bold.otf') format('opentype');
+    font-weight: 800;
+    /* Bold */
+    font-style: normal;
+}
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background: black !important;
