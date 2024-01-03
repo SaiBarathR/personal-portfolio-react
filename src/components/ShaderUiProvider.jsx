@@ -6,13 +6,12 @@ import { useContext, useMemo } from 'react'
 import { colorSets } from '../utils/constants'
 import { ModeContext } from '../context/ModeContext'
 
-
 export default function ShaderUiProvider() {
     const { theme, grain } = useContext(ModeContext);
     const colors = useMemo(() => colorSets[theme][grain ? 'grain' : 'noGrain'], [theme, grain]);
 
     return (
-        <div className='absolute top-0 left-0 p-10 rounded-full w-full h-[100%]'>
+        <div className='absolute top-0 left-0 p-10 rounded-full w-full h-full flex gap-[1px]'>            
             <ShaderGradientCanvas importedFiber={{ ...fiber, ...drei, ...reactSpring }} pointerEvents={'none'}
                 style={{
                     useSlect: 'none',
