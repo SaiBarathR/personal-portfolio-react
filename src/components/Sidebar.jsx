@@ -3,25 +3,36 @@ import { ModeContext } from "../context/ModeContext";
 
 export default function Sidebar() {
 
-    const { grain, dispatch } = useContext(ModeContext);
+    const { grain, monospace, dispatch } = useContext(ModeContext);
     const toggleGrain = () => dispatch({ type: 'TOGGLE_GRAIN' });
     const toggleMode = (theme) => () => dispatch({ type: 'SET_THEME', theme });
+    const toggleMonospace = () => dispatch({ type: 'TOGGLE_MONOSPACE' });
+
+    const CommonButton = ({ children, onClick, spanClassName = null }) => (
+        <box
+            onClick={onClick}
+            className='flex gap-1 items-center uppercase cursor-pointer text-base [writing-mode:vertical-lr] transform rotate-180'
+        >
+            <span className={spanClassName + `  mr-[2px] w-3 h-3  border `} />
+            {children}
+        </box>
+    )
+
 
     return (
-        <div className=' flex gap-4 items-center h-10'>
-            <button onClick={toggleMode('light')} className='flex gap-2 items-center'>
-                <span className={`w-3 h-3  border border-white bg-black `} />
-                Light
-            </button>
-            <button onClick={toggleMode('dark')} className='flex gap-2 items-center'>
-                <span className={`w-3 h-3  border  border-black bg-white dark:bg-white`} />
+        <div className='z-10 items-center fixed bottom-10 left-4 flex flex-col gap-4'>
+            <CommonButton onClick={toggleMonospace} spanClassName={`border-black  dark:border-white  ${monospace ? 'bg-black dark:bg-white' : ''}`}>
+                Monospaced
+            </CommonButton>
+            <CommonButton onClick={toggleGrain} spanClassName={`border-black  dark:border-white  ${grain ? 'bg-black dark:bg-white' : ''}`}>
+                Grain
+            </CommonButton>
+            <CommonButton onClick={toggleMode('dark')} spanClassName={`border-black bg-white dark:bg-white`} >
                 Dark
-            </button>
-            <button onClick={toggleGrain} className='flex gap-2 items-center'>
-                <span className={`w-3 h-3  border border-black  dark:border-white  ${grain ? 'bg-black dark:bg-white' : ''}`}>
-                </span>
-                grain : {grain ? 'on' : 'off'}
-            </button>
+            </CommonButton>
+            <CommonButton onClick={toggleMode('light')} spanClassName={`border-white bg-black`} >
+                Light
+            </CommonButton>
         </div >
     )
 }
