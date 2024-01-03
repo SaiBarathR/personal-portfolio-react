@@ -11,7 +11,7 @@ export default function Sidebar() {
     const CommonButton = ({ children, onClick, spanClassName = null }) => (
         <box
             onClick={onClick}
-            className='flex gap-1 items-center uppercase cursor-pointer text-base [writing-mode:vertical-lr] transform rotate-180'
+            className='flex gap-1 items-center uppercase cursor-pointer [writing-mode:vertical-lr] transform rotate-180'
         >
             <span className={spanClassName + `  mr-[2px] w-3 h-3  border `} />
             {children}
