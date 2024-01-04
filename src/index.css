@@ -97,6 +97,7 @@ code {
 }
 
 ._text {
+    font-weight: 600;
     position: relative;
     transition-property: opacity;
     transition-duration: .4s;
