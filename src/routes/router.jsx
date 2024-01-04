@@ -1,6 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import PortfolioNavHome from "../components/PortfolioNavHome";
-
+import Home from "../components/pages/Home";
+import Projects from "../components/pages/Projects";
+import Info from "../components/pages/Info";
+import Contact from "../components/pages/Contact";
+import UnknownRoute from "../components/UnknownRoute";
 
 export const router = createBrowserRouter([
     {
@@ -9,23 +13,27 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <div>Home</div>,
+                element: <Home />,
+            },
+            {
+                path: "/home",
+                element: <Home />,
             },
             {
                 path: "/projects",
-                element: <div>Projects</div>,
+                element: <Projects />,
             },
             {
                 path: "/info",
-                element: <div>Info</div>,
+                element: <Info />,
             },
             {
                 path: "/contact",
-                element: <div>Contact</div>,
+                element: <Contact />,
             },
             {
                 path: "*",
-                element: <div>Not found</div>,
+                element: <UnknownRoute />,
             },
         ],
     },
