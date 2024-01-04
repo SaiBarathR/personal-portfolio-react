@@ -28,7 +28,7 @@ export default function PortfolioNavHome() {
                     </li>
                 ))}
             </ol>
-            {/* <Outlet /> */}
+            <Outlet />
         </nav>
     );
 }
