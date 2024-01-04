@@ -96,24 +96,6 @@ code {
         monospace;
 }
 
-.siteHeader_nav {
-    margin-top: 30px;
-}
-
-.siteHeader_nav ol {
-    display: flex;
-    flex-direction: column;
-    row-gap: 15px;
-}
-
-ol {
-    list-style: none;
-}
-
-.siteHeader_nav ol li {
-    position: relative;
-}
-
 ._text {
     position: relative;
     transition-property: opacity;
