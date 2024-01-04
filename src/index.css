@@ -5,6 +5,7 @@
 html,
 body {
     height: 100%;
+    background-color: black;
 }
 
 /* Neue Montreal Font */
@@ -82,26 +83,6 @@ body {
     background: black !important;
 }
 
-.siteHeader {
-    position: fixed;
-    z-index: 10;
-    left: 3.7rem;
-    top: 3.6rem;
-    mix-blend-mode: difference;
-}
-
-.siteHeader_title {
-    margin: -0.1em 0 0 -0.04em;
-    font-weight: 200;
-    font-size: 30px;
-}
-
-.siteHeader_label {
-    font-weight: 200;
-    font-size: 14px;
-    margin: 4px 0 0 1px;
-}
-
 .font-NeueMontreal {
     font-family: 'Neue Montreal', sans-serif;
 }
@@ -113,4 +94,46 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+}
+
+.siteHeader_nav {
+    margin-top: 30px;
+}
+
+.siteHeader_nav ol {
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+ol {
+    list-style: none;
+}
+
+.siteHeader_nav ol li {
+    position: relative;
+}
+
+
+
+
+._text {
+    position: relative;
+    transition-property: opacity;
+    transition-duration: .4s;
+    transition-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1);
+}
+
+._text:hover {
+    opacity: 0.5;
+}
+
+._text::before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
 }
