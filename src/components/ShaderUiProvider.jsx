@@ -12,7 +12,7 @@ export default function ShaderUiProvider() {
 
     return (
         <div className='fixed top-0 left-0 p-7 rounded-full w-full h-full flex gap-[1px]'>
-            <ShaderGradientCanvas importedFiber={{ ...fiber, ...drei, ...reactSpring }} pointerEvents={'none'}
+            <ShaderGradientCanvas importedfiber={{ ...fiber, ...drei, ...reactSpring }} pointerEvents={'none'}
                 style={{
                     useSlect: 'none',
                     transform: 'none',
