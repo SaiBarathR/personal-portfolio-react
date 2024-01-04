@@ -9,18 +9,17 @@ export default function Sidebar() {
     const toggleMonospace = () => dispatch({ type: 'TOGGLE_MONOSPACE' });
 
     const CommonButton = ({ children, onClick, spanClassName = null }) => (
-        <box
-            onClick={onClick}
+        <div onClick={onClick}
             className='flex gap-1 items-center uppercase cursor-pointer [writing-mode:vertical-lr] transform rotate-180'
         >
             <span className={spanClassName + `  mr-[2px] w-3 h-3  border `} />
             {children}
-        </box>
+        </div>
     )
 
 
     return (
-        <div className='z-10 items-center fixed bottom-10 left-4 flex flex-col gap-4'>
+        <div className='z-10 items-center fixed bottom-7 left-2 flex flex-col gap-4'>
             <CommonButton onClick={toggleMonospace} spanClassName={`border-black  dark:border-white  ${monospace ? 'bg-black dark:bg-white' : ''}`}>
                 Monospaced
             </CommonButton>
