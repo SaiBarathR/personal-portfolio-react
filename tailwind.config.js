@@ -20,8 +20,8 @@ export default {
         'default': '14px',
       },
       animation: {
-        'appear-smooth': 'appear .7s ease-in-out forwards',
-        'disappear-smooth': 'disappear .7s ease-in-out forwards',
+        'appear-smooth': 'appear 1.2s ease-in-out forwards',
+        'disappear-smooth': 'disappear .5s ease-in-out forwards',
       },
       keyframes: {
         appear: {
