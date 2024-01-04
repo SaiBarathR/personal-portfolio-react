@@ -1,16 +1,19 @@
-import { RouterProvider } from 'react-router-dom';
-import { router } from '../routes/router.jsx';
+import { Outlet } from "react-router-dom";
+import PortfolioHeader from "./PortfolioHeader";
 
 export default function PortfolioContent() {
+
     return (
-        <header className="fixed text-white z-10 left-14 top-12 mix-blend-difference">
-            <h1 className="font-extralight text-3xl h-[30px] ">
-                Sai Barath
-            </h1>
-            <p className="font-extralight mt-1 ml-[1px]">
-                RND Software Engineer
-            </p>
-            <RouterProvider router={router} />
-        </header>
-    )
+        <>
+            <PortfolioHeader />
+            <main className="fixed block z-[2] left-0 top-0 w-full h-full overflow-hidden mix-blend-difference">
+                <div
+                    className="relative min-h-full transform"
+                    style={{ transform: "translate3d(0px,0px,0px)" }}
+                >
+                    <Outlet />
+                </div>
+            </main>
+        </>
+    );
 }
