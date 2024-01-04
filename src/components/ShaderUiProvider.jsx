@@ -11,16 +11,11 @@ export default function ShaderUiProvider() {
     const colors = useMemo(() => colorSets[theme][grain ? 'grain' : 'noGrain'], [theme, grain]);
 
     return (
-        <div className='absolute top-0 left-0 p-10 rounded-full w-full h-full flex gap-[1px]'>            
+        <div className='fixed top-0 left-0 p-7 rounded-full w-full h-full flex gap-[1px]'>
             <ShaderGradientCanvas importedFiber={{ ...fiber, ...drei, ...reactSpring }} pointerEvents={'none'}
                 style={{
                     useSlect: 'none',
                     transform: 'none',
-                    // width: '100%',
-                    // height: '100%',
-                    // position: 'relative',
-                    // top: 0,
-                    // zIndex: -1,                    
                     pointerEvents: 'none',
                     border: '1px solid',
                     borderColor: theme === 'dark' ? '#fff' : '#000000',
@@ -28,7 +23,7 @@ export default function ShaderUiProvider() {
             >
                 <ShaderGradient
                     animate='on'
-                    brightness={0.8}
+                    brightness={1.1}
                     cameraZoom={9.1}
                     frameRate={30}
                     envPreset='city'
