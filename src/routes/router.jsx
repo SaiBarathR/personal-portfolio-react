@@ -12,10 +12,6 @@ export const router = createBrowserRouter([
         element: <PortfolioNavHome />,
         children: [
             {
-                path: "/",
-                element: <Home />,
-            },
-            {
                 path: "/home",
                 element: <Home />,
             },
