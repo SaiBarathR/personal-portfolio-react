@@ -26,7 +26,7 @@ export default function PortfolioHeader() {
             <p className="font-extralight mt-1 ml-[1px]">
                 RND Software Engineer
             </p>
-            <nav className="mt-8">
+            <nav className="mt-10">
                 <ol className="flex flex-col gap-3">
                     {navItems.map((item) => (
                         <li key={item.path}>
