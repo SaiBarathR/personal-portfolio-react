@@ -12,28 +12,26 @@ const GitService = (function () {
     }
     var service = {};
 
-    service.getGithubUserDetails = function () {
-        return fetch(urls.user, {
+    service.getWithHeaders = function (url) {
+        return fetch(url, {
             headers
         }).then((response) => response.json()).then((data) => data);
+    }
+
+    service.getGithubUserDetails = function () {
+        return service.getWithHeaders(urls.user);
     }
 
     service.getRepos = function () {
-        return fetch(urls.repos, {
-            headers
-        }).then((response) => response.json()).then((data) => data);
+        return service.getWithHeaders(urls.repos);
     }
 
     service.getRepoDetails = function (repoUserName) {
-        return fetch(`${urls.repo}/${repoUserName}`, {
-            headers
-        }).then((response) => response.json()).then((data) => data);
+        return service.getWithHeaders(`${urls.repo}/${repoUserName}`);
     }
 
     service.getWeeklyCommitCount = function (repoUserName) {
-        return fetch(`${urls.repo}/${repoUserName}/stats/participation`, {
-            headers
-        }).then((response) => response.json()).then((data) => data);
+        return service.getWithHeaders(`${urls.repo}/${repoUserName}/stats/participation`);
     }
 
     return service;
