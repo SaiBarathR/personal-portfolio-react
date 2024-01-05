@@ -104,10 +104,6 @@ code {
     transition-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1);
 }
 
-._text:hover {
-    opacity: 0.5;
-}
-
 ._text::before {
     content: "";
     display: block;
@@ -116,4 +112,15 @@ code {
     top: -5px;
     width: calc(100% + 10px);
     height: calc(100% + 10px);
+}
+
+.text-btn {
+    transition-property: opacity;
+    transition-duration: .4s;
+    transition-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1);
+}
+
+._text:hover,
+.text-btn:hover {
+    opacity: 0.5;
 }
