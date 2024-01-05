@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import PortfolioContent from "../components/PortfolioContent";
-import Home from "../components/pages/Home";
-import Projects from "../components/pages/Projects";
-import Info from "../components/pages/Info";
-import Contact from "../components/pages/Contact";
+import Home from "../pages/Home";
+import Projects from "../pages/Projects";
+import Info from "../pages/Info";
+import Contact from "../pages/Contact";
 import UnknownRoute from "../components/UnknownRoute";
 
 export const portfolioContentRouter = createBrowserRouter([
