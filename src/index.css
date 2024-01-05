@@ -124,3 +124,18 @@ code {
 .text-btn:hover {
     opacity: 0.5;
 }
+
+.project_title {
+    font-weight: 200;
+    font-size: 4vw;
+    text-align: right;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
