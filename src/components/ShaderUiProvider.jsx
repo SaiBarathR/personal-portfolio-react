@@ -11,14 +11,14 @@ export default function ShaderUiProvider() {
     const colors = useMemo(() => colorSets[theme][grain ? 'grain' : 'noGrain'], [theme, grain]);
 
     return (
-        <div className='fixed p-5 rounded-full w-full h-full flex gap-[1px]'>
+        <div className='fixed p-5  w-full h-full'>
             <ShaderGradientCanvas importedfiber={{ ...fiber, ...drei, ...reactSpring }} pointerEvents={'none'}
                 style={{
                     useSlect: 'none',
                     transform: 'none',
                     pointerEvents: 'none',
                     border: '1px solid',
-                    borderColor: theme === 'dark' ? '#fff' : '#000000',
+                    borderColor: theme === 'dark' ? 'gray' : '#000000',
                 }}
             >
                 <ShaderGradient
