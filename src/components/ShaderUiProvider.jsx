@@ -11,7 +11,7 @@ export default function ShaderUiProvider() {
     const colors = useMemo(() => colorSets[theme][grain ? 'grain' : 'noGrain'], [theme, grain]);
 
     return (
-        <div className='fixed top-0 left-0 p-7 rounded-full w-full h-full flex gap-[1px]'>
+        <div className='fixed p-5 rounded-full w-full h-full flex gap-[1px]'>
             <ShaderGradientCanvas importedfiber={{ ...fiber, ...drei, ...reactSpring }} pointerEvents={'none'}
                 style={{
                     useSlect: 'none',
