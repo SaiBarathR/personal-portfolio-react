@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className={theme === 'dark' ? 'dark' : ''}>
-      <div className={`bg-[#e6e6e6] text-black dark:bg-black dark:text-white h-screen w-full text-default ${monospace ? 'font-NeueMontrealMono' : 'font-NeueMontreal'}`}>
+      <div className={`bg-[#e6e6e6] fixed text-black dark:bg-black dark:text-white h-screen w-full text-default ${monospace ? 'font-NeueMontrealMono' : 'font-NeueMontreal'}`}>
         <ShaderUiProvider />
         <RouterProvider router={portfolioContentRouter} />
         <Sidebar />
