@@ -1,9 +1,12 @@
-import config from '../utils/config.json';
+import { gitConfig } from "../utils/config";
 
 const GitService = (function () {
-    const baseUrl = config.gitBaseUrl;
-    const username = config.gitUserName;
-    const headers = { 'X-GitHub-Api-Version': '2022-11-28' }
+    const baseUrl = gitConfig.gitBaseUrl;
+    const username = gitConfig.gitUserName;
+    const headers = {
+        'X-GitHub-Api-Version': '2022-11-28',
+        'Authorization': `token ${gitConfig.gitPersonalKey}`,
+    }
 
     const urls = {
         user: `${baseUrl}/users/${username}`,
@@ -15,7 +18,10 @@ const GitService = (function () {
     service.getWithHeaders = function (url) {
         return fetch(url, {
             headers
-        }).then((response) => response.json()).then((data) => data);
+        }).then((response) => response.json()).then((data) => data).catch((error) => {
+            console.log(error);
+            return error;
+        });
     }
 
     service.getGithubUserDetails = function () {
