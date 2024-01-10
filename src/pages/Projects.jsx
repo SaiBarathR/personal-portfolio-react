@@ -17,7 +17,7 @@ export default function Projects() {
         </div> : 
         projects.length > 0 && <div className="flex flex-col items-end gap-4 mt-14 animate-appear-smooth">
           {projects.map((project) => (
-            <a key={project.id} className="text-btn" href={project.repoUrl} target="_blank" rel="noreferrer">
+            <a key={project.id} className="text-btn" href={project.liveUrl || project.repoUrl} target="_blank" rel="noreferrer">
               <div className="project_title uppercase">{project.name}</div>
               <div className="mt-1">{project.created_at}</div>
             </a>
