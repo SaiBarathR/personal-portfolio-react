@@ -15,11 +15,11 @@ export default function Projects() {
           <br/>
           the GitHub universe...       
         </div> : 
-        projects.length > 0 && <div className="flex flex-col items-end gap-4 mt-14 animate-appear-smooth">
+        projects.length > 0 && <div className="flex flex-col items-end gap-8 md:gap-12 lg:gap-16 mt-14 animate-appear-smooth">
           {projects.map((project) => (
-            <a key={project.id} className="text-btn" href={project.liveUrl || project.repoUrl} target="_blank" rel="noreferrer">
-              <div className="project_title text-[2vh] md:text-[3vh] lg:text-[4vh] xl:text-[5vh] uppercase">{project.name}</div>
-              <div className="mt-1">{project.created_at}</div>
+            <a key={project.id} className="text-btn text-[1vh] xl:flex xl:gap-3 xl:items-end" href={project.liveUrl || project.repoUrl} target="_blank" rel="noreferrer">
+              <p>{project.created_at}</p>
+              <p className="project_title text-[2vh] md:text-[3vh] lg:text-[4vh] xl:text-[5vh] uppercase">{project.name}</p>
             </a>
           ))}
         </div>
