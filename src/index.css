@@ -127,7 +127,7 @@ code {
 
 .project_title {
     font-weight: 200;
-    font-size: 3vw;
+    /* font-size: 3vw; */
     text-align: right;
 }
 
