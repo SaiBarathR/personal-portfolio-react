@@ -10,7 +10,6 @@ export default function useProjects() {
         setLoading(true);
         try {
             let resp = await GitService.getRepos();            
-            console.log("projects from git:", resp)
 
             if (!resp || (resp.message === "Not Found") || (resp.length !== undefined && resp.length < 1)) {
                 setLoading(false);
