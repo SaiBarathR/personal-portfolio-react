@@ -17,9 +17,9 @@ export default function Projects() {
         </div> : 
         projects.length > 0 && <div className="flex flex-col items-end gap-8 md:gap-12 lg:gap-16 mt-14 animate-appear-smooth">
           {projects.map((project) => (
-            <a key={project.id} className="text-btn text-[1vh] xl:flex xl:gap-3 xl:items-end" href={project.liveUrl || project.repoUrl} target="_blank" rel="noreferrer">
+            <a key={project.id} className="text-btn text-[1.5vw] xl:flex xl:gap-3 xl:items-end" href={project.liveUrl || project.repoUrl} target="_blank" rel="noreferrer">
               <p>{project.created_at}</p>
-              <p className="project_title text-[2vh] md:text-[3vh] lg:text-[4vh] xl:text-[5vh] uppercase">{project.name}</p>
+              <p className="project_title text-[3vw] lg:text-[4vw] xl:text-[5vw] uppercase">{project.name}</p>
             </a>
           ))}
         </div>
