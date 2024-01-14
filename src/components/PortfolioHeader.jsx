@@ -15,7 +15,7 @@ export default function PortfolioHeader() {
         { path: "/home", name: "Home" },
         { path: "/projects", name: "Projects" },
         { path: "/info", name: "Info" },
-        { path: "/contact", name: "Contact" },
+        // { path: "/contact", name: "Contact" },
     ];
 
     return (
