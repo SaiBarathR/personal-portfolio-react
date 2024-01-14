@@ -139,3 +139,19 @@ code {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+.fade-out {
+    animation: fadeOut ease 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
