@@ -5,7 +5,7 @@ export default function Sidebar() {
 
     const { grain, monospace, dispatch } = useContext(ModeContext);
     const toggleGrain = () => dispatch({ type: 'TOGGLE_GRAIN' });
-    const toggleMode = (theme) => () => dispatch({ type: 'SET_THEME', theme });
+    // const toggleMode = (theme) => () => dispatch({ type: 'SET_THEME', theme });
     const toggleMonospace = () => dispatch({ type: 'TOGGLE_MONOSPACE' });
 
     const CommonButton = ({ children, onClick, spanClassName = null }) => (
@@ -26,12 +26,12 @@ export default function Sidebar() {
             <CommonButton onClick={toggleGrain} spanClassName={`border-black  dark:border-white  ${grain ? 'bg-black dark:bg-white' : ''}`}>
                 Grain
             </CommonButton>
-            <CommonButton onClick={toggleMode('dark')} spanClassName={`border-black bg-white dark:bg-white`} >
+            {/* <CommonButton onClick={toggleMode('dark')} spanClassName={`border-black bg-white dark:bg-white`} >
                 Dark
             </CommonButton>
             <CommonButton onClick={toggleMode('light')} spanClassName={`border-white bg-black`} >
                 Light
-            </CommonButton>
+            </CommonButton> */}
         </div >
     )
 }
