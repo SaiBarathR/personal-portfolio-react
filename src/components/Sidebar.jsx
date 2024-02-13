@@ -16,7 +16,7 @@ export default function Sidebar() {
             {children}
         </div>
     )
-
+    //Redo Color
     return (
         <div className='z-10 items-center fixed bottom-5 left-0 flex flex-col gap-4'>
             <CommonButton onClick={toggleMonospace} spanClassName={`border-black  dark:border-white  ${monospace ? 'bg-black dark:bg-white' : ''}`}>
