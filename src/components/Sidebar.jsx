@@ -12,13 +12,13 @@ export default function Sidebar() {
         <div onClick={onClick}
             className='flex gap-1 items-center uppercase cursor-pointer [writing-mode:vertical-lr] transform rotate-180'
         >
-            <span className={spanClassName + `  mr-[2px] w-3 h-3  border `} />
+            <span className={spanClassName + `  mr-[2px] w-3 h-3  border`} />
             {children}
         </div>
     )
     //Redo Color
     return (
-        <div className='z-10 items-center fixed bottom-5 left-0 flex flex-col gap-4'>
+        <div className='z-10  items-center fixed bottom-5 left-0 flex flex-col gap-4'>
             <CommonButton onClick={toggleMonospace} spanClassName={`border-black  dark:border-white  ${monospace ? 'bg-black dark:bg-white' : ''}`}>
                 Monospaced
             </CommonButton>
