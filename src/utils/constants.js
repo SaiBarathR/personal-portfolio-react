@@ -38,7 +38,8 @@ export const reposToDisplay = [
     662942402, // Email Newsletter NodesJs Postgresql    
     662985475, // Personal Portfolio Basic Next Js    
     634502967, // Service Worker Starter Code
-    663978008, // React Reusable Components    
+    663978008, // React Reusable Components  
+    820775230, // Power Mode Switcher
 ];
 export const repositories = [
     {
