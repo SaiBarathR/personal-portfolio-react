@@ -26,6 +26,7 @@ export const colorSets = {
 };
 
 export const reposToDisplay = [
+    850305416, // Chakra UI Table Library
     686862221, // Manga Harbor
     694600043, // Manga Harbor Server    
     734638660, // login page with jwt auth one tap sign in 
@@ -40,7 +41,6 @@ export const reposToDisplay = [
     634502967, // Service Worker Starter Code
     663978008, // React Reusable Components  
     820775230, // Power Mode Switcher
-    850305416, // Chakra UI Table Library
 ];
 export const repositories = [
     {
