@@ -1,10 +1,8 @@
 export default function Home() {
 
   const description = [
-    "Born in 2000", "in Chennai, India.",
-    "Web development", "has the potential", " to be more ", "varied and creative.",
-    "With a goal", "to showcase", "the opportunities", "of web development,",
-    "On a mission", "to unveil the", "myriad possibilities, ", "I am exploring", "through trials", "and ideas.",
+    "Welcome to my ", "digital playground,", "where every line", "of code brings ", "creativity to life.",
+    "I’m a developer on a ", "mission to shape", "ideas into interactive", "experiences.",
   ]
 
   return (

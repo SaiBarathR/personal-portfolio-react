@@ -4,7 +4,7 @@ import { modeReducer } from '../reducers/modeReducer';
 
 export function ModeProvider({ children }) {
     const savedMode = localStorage.getItem('theme');
-    const savedGrain = localStorage.getItem('grain') !== null ? localStorage.getItem('grain') === 'true' : true;
+    const savedGrain = localStorage.getItem('grain') !== null ? localStorage.getItem('grain') === 'true' : false;
     const savedMonospace = localStorage.getItem('monospace') !== null ? localStorage.getItem('monospace') === 'true' : false;
     const preferredMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     const [state, dispatch] = useReducer(modeReducer, { theme: savedMode || preferredMode, grain: savedGrain, monospace: savedMonospace });
