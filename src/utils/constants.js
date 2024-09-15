@@ -27,6 +27,7 @@ export const colorSets = {
 
 export const reposToDisplay = [
     850305416, // Chakra UI Table Library
+    857218219, // React Audio Waveform Library
     686862221, // Manga Harbor
     694600043, // Manga Harbor Server    
     734638660, // login page with jwt auth one tap sign in 
