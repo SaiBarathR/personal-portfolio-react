@@ -16,6 +16,8 @@ export default function Info() {
                     <ul>
                         <li><a className="text-btn " href="https://github.com/SaiBarathR" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
                         <li><a className="text-btn " href="https://www.linkedin.com/in/saibarath-r/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+                        <li><a className="text-btn " href="https://www.npmjs.com/~saibarath" target="_blank" rel="noopener noreferrer">NPM ↗</a></li>
+
                     </ul>
                 </div>
                 <div className={"xl:fixed bottom-14 " + (monospace ? "xl:left-[76%]" : "xl:left-[79%]")}>
