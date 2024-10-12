@@ -6,7 +6,7 @@ export default function Info() {
     return (
         <section className="w-full [min-height:calc(var(--vh, 1vh)*100)] font-semibold animate-appear-smooth">
             <div className="fixed flex flex-col left-12 bottom-10 gap-9">
-                <div className="top-[45%] xl:fixed   xl:left-[55%] xl:top-[50%] ">
+                <div className="top-[45%] xl:fixed xl:left-[55%] xl:top-[50%] ">
                     <ul>
                         <li><a className="text-btn " href="https://twitter.com/saibarathr" target="_blank" rel="noopener noreferrer">Twitter ↗</a></li>
                         <li><a className="text-btn " href="https://www.instagram.com/saibarath_r/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></li>
