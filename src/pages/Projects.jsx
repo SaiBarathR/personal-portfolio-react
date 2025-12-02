@@ -10,7 +10,7 @@ export default function Projects() {
   const projectTitleClass = (needBoldFont ? "font-semibold" : "project_title")
 
   return (
-    <section className="w-full fixed h-full overflow-y-scroll scrollbar-hide">
+    <section className="fixed inset-5 overflow-y-scroll scrollbar-hide">
       <div className="px-14 py-36 text-right whitespace-nowrap">
         <h2 className={(needBoldFont ? "font-semibold" : "font-default") + (" animate-appear-smooth")}>
           ■ Projects
