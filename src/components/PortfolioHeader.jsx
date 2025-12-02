@@ -23,11 +23,11 @@ export default function PortfolioHeader() {
 
     return (
         <header className="fixed text-[#AD9E9E]  dark:text-white z-10 left-12 top-10 mix-blend-difference">
-            <h1 className={(needBoldFont ? "font-semibold" : "font-extralight") + (" text-3xl xl:text-6xl h-[30px] xl:h-[56px]")}>
-                Sai Barath
+            <h1 className={(needBoldFont ? "font-bold" : "font-normal") + (" text-3xl xl:text-6xl h-[30px] xl:h-[56px]")}>
+                Sai Barath R
             </h1>
-            <p className={(needBoldFont ? "font-semibold" : "font-extralight") + (" mt-1 ml-[1px]")}>
-                RND Software Engineer
+            <p className={(needBoldFont ? "font-semibold" : "font-normal") + (" mt-1 ml-[1px]")}>
+                Software Engineer
             </p>
             <nav className="mt-10">
                 <ol className="flex flex-col gap-3">
