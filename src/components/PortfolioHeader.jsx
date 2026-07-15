@@ -17,6 +17,7 @@ export default function PortfolioHeader() {
     const navItems = [
         { path: "/home", name: "Home" },
         { path: "/projects", name: "Projects" },
+        { path: "/activity", name: "Activity" },
         { path: "/info", name: "Info" },
         // { path: "/contact", name: "Contact" },
     ];
