@@ -40,6 +40,10 @@ const GitService = (function () {
         return service.getWithHeaders(`${urls.repo}/${repoUserName}/stats/participation`);
     }
 
+    service.getUserEvents = function () {
+        return service.getWithHeaders(`${urls.user}/events/public`);
+    }
+
     return service;
 }());
 
