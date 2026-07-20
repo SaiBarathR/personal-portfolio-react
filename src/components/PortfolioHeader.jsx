@@ -23,7 +23,7 @@ export default function PortfolioHeader() {
     ];
 
     return (
-        <header className="fixed text-[#AD9E9E]  dark:text-white z-10 left-12 top-10 mix-blend-difference">
+        <header className="fixed text-[#C8B7B7] dark:text-white z-10 left-12 top-10 mix-blend-difference">
             <h1 className={(needBoldFont ? "font-bold" : "font-normal") + (" text-3xl xl:text-6xl h-[30px] xl:h-[56px]")}>
                 Sai Barath R
             </h1>
