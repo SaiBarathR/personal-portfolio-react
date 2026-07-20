@@ -1,9 +1,13 @@
+// Text renders with mix-blend-difference over this gradient, so keep the
+// palette away from mid-gray: dark sets stay below ~#4a4a4a and light sets
+// above ~#d5d5d5, or the blended text loses contrast wherever the animated
+// gradient passes under it.
 export const colorSets = {
     dark: {
         grain: {
             color1: '#0d0d0d',
-            color2: '#aeb0ae',
-            color3: '#0d0d0d'
+            color2: '#6e706e',
+            color3: '#141414'
         },
         noGrain: {
             color1: '#000000',
@@ -13,9 +17,9 @@ export const colorSets = {
     },
     light: {
         grain: {
-            color1: '#c4c0c0',
+            color1: '#dedada',
             color2: '#ffffff',
-            color3: '#e6e6e6'
+            color3: '#efecec'
         },
         noGrain: {
             color1: '#a1a1a1',
