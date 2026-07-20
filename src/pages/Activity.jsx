@@ -29,8 +29,8 @@ export default function Activity() {
     const periodLabel = calendar?.rolling ? "last 12 months" : String(year);
 
     return (
-        <section className="fixed inset-5 overflow-y-scroll scrollbar-hide">
-            <div className="pl-28 md:pl-40 xl:pl-52 pr-6 md:pr-14 py-28 md:py-36">
+        <section className="fixed left-5 right-5 bottom-5 top-28 xl:top-36 overflow-y-scroll scrollbar-hide">
+            <div className="pl-28 md:pl-40 xl:pl-52 pr-6 md:pr-14 pt-2 md:pt-4 pb-28 md:pb-36">
                 <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-10 md:mb-14 animate-appear-smooth">
                     <div>
                         <h2 className={needBoldFont ? "font-semibold" : "font-default"}>
