@@ -23,7 +23,12 @@ export const relativeTime = (isoDate) => {
 
 export const formatShortDate = (isoDate) => {
     if (!isoDate) return "";
-    const date = new Date(isoDate);
+    // Bare YYYY-MM-DD parses as UTC midnight; anchor it to local time so
+    // users west of UTC don't render the previous calendar day.
+    const normalized = /^\d{4}-\d{2}-\d{2}$/.test(isoDate)
+        ? `${isoDate}T00:00:00`
+        : isoDate;
+    const date = new Date(normalized);
     if (Number.isNaN(date.getTime())) return "";
     return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
 };
