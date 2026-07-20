@@ -6,7 +6,7 @@ export const colorSets = {
     dark: {
         grain: {
             color1: '#0d0d0d',
-            color2: '#6e706e',
+            color2: '#454745',
             color3: '#141414'
         },
         noGrain: {
