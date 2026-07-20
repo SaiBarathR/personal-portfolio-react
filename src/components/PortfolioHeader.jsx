@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ModeContext } from '../context/ModeContext';
 
 export default function PortfolioHeader() {
-    const { theme } = useContext(ModeContext);
+    const { theme, grain } = useContext(ModeContext);
     const { pathname } = useLocation();
     const navigate = useNavigate();
     const needBoldFont = theme === 'light' ? window.innerWidth < 768 : false
@@ -22,8 +22,13 @@ export default function PortfolioHeader() {
         // { path: "/contact", name: "Contact" },
     ];
 
+    // Shader grain is a halftone dither; mix-blend-difference over it speckles text.
+    const textClass = grain
+        ? "text-black dark:text-white"
+        : "text-[#C8B7B7] dark:text-white mix-blend-difference";
+
     return (
-        <header className="fixed text-[#C8B7B7] dark:text-white z-10 left-12 top-10 mix-blend-difference">
+        <header className={"fixed z-10 left-12 top-10 " + textClass}>
             <h1 className={(needBoldFont ? "font-bold" : "font-normal") + (" text-3xl xl:text-6xl h-[30px] xl:h-[56px]")}>
                 Sai Barath R
             </h1>
