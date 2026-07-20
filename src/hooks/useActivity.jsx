@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import GitService from "../service/gitService";
 import {
     buildCalendar,
@@ -26,7 +26,12 @@ export default function useActivity() {
         return list;
     }, [accountCreatedYear]);
 
+    // Guards against out-of-order responses: rapid year switches fire
+    // overlapping requests, so only the latest one may commit state.
+    const requestId = useRef(0);
+
     const load = useCallback(async (selectedYear) => {
+        const id = ++requestId.current;
         setLoading(true);
         setError(null);
         try {
@@ -37,6 +42,8 @@ export default function useActivity() {
                     ? GitService.getUserEventsPages(3)
                     : Promise.resolve([]),
             ]);
+
+            if (id !== requestId.current) return;
 
             const user = contribData?.user;
             const collection = user?.contributionsCollection;
@@ -56,12 +63,14 @@ export default function useActivity() {
             setOverview(buildOverview(collection));
             setEvents(Array.isArray(eventData) ? eventData : []);
         } catch (err) {
+            if (id !== requestId.current) return;
             console.log(err);
             setError(err?.message || "Failed to load activity");
             setCalendar(null);
             setOverview(null);
+            setEvents([]);
         } finally {
-            setLoading(false);
+            if (id === requestId.current) setLoading(false);
         }
     }, []);
 

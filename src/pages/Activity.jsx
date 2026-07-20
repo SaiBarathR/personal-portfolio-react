@@ -106,7 +106,7 @@ export default function Activity() {
                     <p className="mb-10 text-sm opacity-70 animate-appear-smooth">{error}</p>
                 )}
 
-                <div className="space-y-16 md:space-y-24">
+                <div className={"space-y-16 md:space-y-24" + (error ? " hidden" : "")}>
                     <Reveal>
                         <section>
                             <p className="text-[11px] uppercase tracking-[0.22em] opacity-50 mb-5">
