@@ -24,7 +24,14 @@ export default function Projects() {
             {projects.map((project) => (
               <a key={project.id} className="text-btn text-[2.2vw] md:text-[1.5vw] xl:flex xl:gap-3 xl:items-end" href={project.liveUrl || project.repoUrl} target="_blank" rel="noreferrer">
                 <p>{project.created_at}</p>
-                <p className={projectTitleClass + (" text-[4vw] lg:text-[4vw] xl:text-[5vw] uppercase")}>{project.name}</p>
+                <div className="flex flex-col items-end">
+                  <p className={projectTitleClass + (" text-[4vw] lg:text-[4vw] xl:text-[5vw] uppercase")}>{project.name}</p>
+                  {(project.activityLabel || project.activityRelative) && (
+                    <p className="text-[1.8vw] md:text-[1.1vw] opacity-60 normal-case mt-1">
+                      {[project.activityLabel, project.activityRelative].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
+                </div>
               </a>
             ))}
           </div>

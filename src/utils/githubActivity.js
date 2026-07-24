@@ -625,6 +625,96 @@ export const buildYearSummaryTimeline = (overview, year) => {
     ];
 };
 
+/** Short activity label for the Projects list subtitle. */
+export const formatProjectActivityLabel = (event) => {
+    const payload = event?.payload || {};
+    const action = payload.action;
+
+    switch (event?.type) {
+        case "PushEvent": {
+            const count = payload.size || payload.commits?.length || 0;
+            return count
+                ? `Pushed ${count} commit${count === 1 ? "" : "s"}`
+                : "Pushed commits";
+        }
+        case "PullRequestEvent": {
+            const pr = payload.pull_request || {};
+            if (pr.merged) return "Merged a pull request";
+            if (action === "opened") return "Opened a pull request";
+            if (action === "closed") return "Closed a pull request";
+            return "Updated a pull request";
+        }
+        case "IssuesEvent": {
+            if (action === "opened") return "Opened an issue";
+            if (action === "closed") return "Closed an issue";
+            if (action === "reopened") return "Reopened an issue";
+            return "Updated an issue";
+        }
+        case "IssueCommentEvent":
+            return "Commented on an issue";
+        case "WatchEvent":
+            return "Starred repository";
+        case "ForkEvent":
+            return "Forked repository";
+        case "CreateEvent":
+            return payload.ref_type === "repository"
+                ? "Created repository"
+                : `Created ${payload.ref_type || "ref"}`;
+        case "DeleteEvent":
+            return `Deleted ${payload.ref_type || "ref"}`;
+        case "ReleaseEvent":
+            return payload.release?.tag_name
+                ? `Published release ${payload.release.tag_name}`
+                : "Published a release";
+        case "PublicEvent":
+            return "Made repository public";
+        case "MemberEvent":
+            return "Added a collaborator";
+        default:
+            return humanizeType(event?.type || "activity");
+    }
+};
+
+/** Latest public event per repo short name (newest-first walk). */
+export const buildLatestActivityByRepo = (events = []) => {
+    const latest = new Map();
+    if (!Array.isArray(events)) return latest;
+
+    for (const event of events) {
+        const fullName = event?.repo?.name;
+        if (!fullName) continue;
+        const shortName = fullName.split("/").pop();
+        if (!shortName || latest.has(shortName)) continue;
+        latest.set(shortName, event);
+    }
+
+    return latest;
+};
+
+/** Event-based activity, or last-push fallback when no recent event exists. */
+export const resolveProjectActivity = (repoName, latestByRepo, pushedAt) => {
+    const event = latestByRepo?.get(repoName);
+    if (event?.created_at) {
+        return {
+            activityLabel: formatProjectActivityLabel(event),
+            activityAt: event.created_at,
+            activityRelative: relativeTime(event.created_at),
+        };
+    }
+    if (pushedAt) {
+        return {
+            activityLabel: "Last pushed",
+            activityAt: pushedAt,
+            activityRelative: relativeTime(pushedAt),
+        };
+    }
+    return {
+        activityLabel: "",
+        activityAt: null,
+        activityRelative: "",
+    };
+};
+
 // Legacy feed formatter (kept for compatibility).
 export const formatEvents = (events, limit = 18) => {
     if (!Array.isArray(events)) return [];
