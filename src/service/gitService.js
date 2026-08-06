@@ -50,8 +50,18 @@ const GitService = (function () {
         return service.getWithHeaders(urls.user);
     };
 
-    service.getRepos = function () {
-        return service.getWithHeaders(urls.repos);
+    service.getRepos = async function (perPage = 100, maxPages = 10) {
+        const all = [];
+        for (let page = 1; page <= maxPages; page += 1) {
+            const batch = await service.getWithHeaders(
+                `${urls.repos}?per_page=${perPage}&page=${page}`
+            );
+            // Surface the raw error/"Not Found" payload when the very first page fails.
+            if (!Array.isArray(batch)) return page === 1 ? batch : all;
+            all.push(...batch);
+            if (batch.length < perPage) break;
+        }
+        return all;
     };
 
     service.getRepoDetails = function (repoUserName) {
