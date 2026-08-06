@@ -91,7 +91,7 @@ export default function ActivityOverview({ overview, loading }) {
                             const share = repo.count / maxRepoCount;
                             const pct = repoTotal > 0 ? Math.round((repo.count / repoTotal) * 100) : 0;
                             return (
-                                <li key={repo.name} className="border-t border-current/10">
+                                <li key={repo.name}>
                                     <a
                                         href={repo.url}
                                         target="_blank"
