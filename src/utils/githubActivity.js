@@ -69,8 +69,16 @@ export const contributionLevel = (count = 0) => {
     return 4;
 };
 
+const localDateKey = (date = new Date()) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
+        date.getDate()
+    ).padStart(2, "0")}`;
+
 export const buildCalendar = (contributionCalendar) => {
     const weeks = contributionCalendar?.weeks || [];
+    // The current year is fetched through Dec 31, so days after today are
+    // placeholders rather than quiet days.
+    const today = localDateKey();
     const days = weeks.flatMap((week) =>
         (week.contributionDays || []).map((day) => ({
             date: day.date,
@@ -78,6 +86,7 @@ export const buildCalendar = (contributionCalendar) => {
             level: contributionLevel(day.contributionCount || 0),
             weekday: day.weekday,
             color: day.color,
+            future: day.date > today,
         }))
     );
 
@@ -102,6 +111,7 @@ export const buildCalendar = (contributionCalendar) => {
                 count: day.contributionCount || 0,
                 level: contributionLevel(day.contributionCount || 0),
                 weekday: day.weekday,
+                future: day.date > today,
             }))
         ),
         days,
@@ -114,8 +124,9 @@ export const buildCalendar = (contributionCalendar) => {
  * monthly flow. Everything comes from data already on the client.
  */
 export const buildInsights = (calendar) => {
+    // Days that haven't happened yet would dilute averages and break streaks.
     const sorted = (calendar?.days || [])
-        .filter((day) => day.date)
+        .filter((day) => day.date && !day.future)
         .slice()
         .sort((a, b) => new Date(a.date) - new Date(b.date));
     if (!sorted.length) return null;

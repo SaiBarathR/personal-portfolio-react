@@ -102,6 +102,17 @@ export default function ContributionGraph({ calendar, loading }) {
                                             );
                                         }
 
+                                        // Not reached yet: an outline, so it doesn't read as a quiet day.
+                                        if (day.future) {
+                                            return (
+                                                <span
+                                                    key={day.date}
+                                                    aria-hidden="true"
+                                                    className="aspect-square w-full border border-current opacity-10"
+                                                />
+                                            );
+                                        }
+
                                         const isPeak =
                                             peak && peak.count > 0 && day.date === peak.date;
 

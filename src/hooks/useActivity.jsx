@@ -37,7 +37,7 @@ export default function useActivity() {
         try {
             const isCurrentYear = selectedYear === currentYear;
             const [contribData, eventData] = await Promise.all([
-                GitService.getContributions(selectedYear, { rolling: isCurrentYear }),
+                GitService.getContributions(selectedYear),
                 isCurrentYear
                     ? GitService.getUserEventsPages(3)
                     : Promise.resolve([]),
@@ -58,7 +58,7 @@ export default function useActivity() {
 
             setCalendar({
                 ...buildCalendar(collection.contributionCalendar),
-                rolling: isCurrentYear,
+                current: isCurrentYear,
             });
             setOverview(buildOverview(collection));
             setEvents(Array.isArray(eventData) ? eventData : []);

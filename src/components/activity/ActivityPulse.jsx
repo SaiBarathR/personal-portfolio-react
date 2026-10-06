@@ -1,7 +1,7 @@
 import { CountUp } from "./motion";
 import { formatShortDate } from "../../utils/githubActivity";
 
-export default function ActivityPulse({ insights, rolling, loading }) {
+export default function ActivityPulse({ insights, current, loading }) {
     if (loading || !insights) {
         return (
             <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-px opacity-30">
@@ -13,7 +13,7 @@ export default function ActivityPulse({ insights, rolling, loading }) {
     }
 
     const stats = [
-        rolling && {
+        current && {
             label: "Current streak",
             value: insights.currentStreak,
             unit: insights.currentStreak === 1 ? "day" : "days",
