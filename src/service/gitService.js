@@ -85,15 +85,29 @@ const GitService = (function () {
         return batches.flatMap((batch) => (Array.isArray(batch) ? batch : []));
     };
 
-    service.getContributions = async function (year) {
+    service.getContributions = async function (year, { withPreviousYear = false } = {}) {
         // Always a full calendar year; for the current year GitHub pads the
         // days that haven't happened yet with zero counts.
         const from = `${year}-01-01T00:00:00Z`;
         const to = `${year}-12-31T23:59:59Z`;
+        // Previous year's days let a live streak run back past Jan 1.
+        const previousYear = withPreviousYear
+            ? `previousYear: contributionsCollection(from: "${year - 1}-01-01T00:00:00Z", to: "${year - 1}-12-31T23:59:59Z") {
+            contributionCalendar {
+              weeks {
+                contributionDays {
+                  contributionCount
+                  date
+                }
+              }
+            }
+          }`
+            : "";
         const query = `
       query($username: String!, $from: DateTime!, $to: DateTime!) {
         user(login: $username) {
           createdAt
+          ${previousYear}
           contributionsCollection(from: $from, to: $to) {
             totalCommitContributions
             totalPullRequestContributions

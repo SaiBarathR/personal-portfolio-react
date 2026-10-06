@@ -3,6 +3,7 @@ import GitService from "../service/gitService";
 import {
     buildCalendar,
     buildOverview,
+    buildPriorDays,
     buildTimeline,
     buildYearSummaryTimeline,
 } from "../utils/githubActivity";
@@ -37,7 +38,7 @@ export default function useActivity() {
         try {
             const isCurrentYear = selectedYear === currentYear;
             const [contribData, eventData] = await Promise.all([
-                GitService.getContributions(selectedYear),
+                GitService.getContributions(selectedYear, { withPreviousYear: isCurrentYear }),
                 isCurrentYear
                     ? GitService.getUserEventsPages(3)
                     : Promise.resolve([]),
@@ -59,6 +60,7 @@ export default function useActivity() {
             setCalendar({
                 ...buildCalendar(collection.contributionCalendar),
                 current: isCurrentYear,
+                priorDays: buildPriorDays(user.previousYear?.contributionCalendar),
             });
             setOverview(buildOverview(collection));
             setEvents(Array.isArray(eventData) ? eventData : []);
