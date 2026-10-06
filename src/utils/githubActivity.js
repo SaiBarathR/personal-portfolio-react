@@ -69,8 +69,22 @@ export const contributionLevel = (count = 0) => {
     return 4;
 };
 
+const localDateKey = (date = new Date()) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(
+        date.getDate()
+    ).padStart(2, "0")}`;
+
 export const buildCalendar = (contributionCalendar) => {
     const weeks = contributionCalendar?.weeks || [];
+    // The current year is fetched through Dec 31, so days after today are
+    // placeholders rather than quiet days. GitHub's calendar can run ahead of
+    // the viewer's clock, so a day with contributions is never a placeholder.
+    let today = localDateKey();
+    weeks.forEach((week) =>
+        (week.contributionDays || []).forEach((day) => {
+            if (day.contributionCount > 0 && day.date > today) today = day.date;
+        })
+    );
     const days = weeks.flatMap((week) =>
         (week.contributionDays || []).map((day) => ({
             date: day.date,
@@ -78,6 +92,7 @@ export const buildCalendar = (contributionCalendar) => {
             level: contributionLevel(day.contributionCount || 0),
             weekday: day.weekday,
             color: day.color,
+            future: day.date > today,
         }))
     );
 
@@ -102,6 +117,7 @@ export const buildCalendar = (contributionCalendar) => {
                 count: day.contributionCount || 0,
                 level: contributionLevel(day.contributionCount || 0),
                 weekday: day.weekday,
+                future: day.date > today,
             }))
         ),
         days,
@@ -109,13 +125,22 @@ export const buildCalendar = (contributionCalendar) => {
     };
 };
 
+/** Previous year's days, newest first, for carrying a streak back past Jan 1. */
+export const buildPriorDays = (contributionCalendar) =>
+    (contributionCalendar?.weeks || [])
+        .flatMap((week) => week.contributionDays || [])
+        .filter((day) => day.date)
+        .map((day) => ({ date: day.date, count: day.contributionCount || 0 }))
+        .sort((a, b) => (a.date < b.date ? 1 : -1));
+
 /**
  * Derive analysis from the contribution calendar: streaks, cadence,
  * monthly flow. Everything comes from data already on the client.
  */
 export const buildInsights = (calendar) => {
+    // Days that haven't happened yet would dilute averages and break streaks.
     const sorted = (calendar?.days || [])
-        .filter((day) => day.date)
+        .filter((day) => day.date && !day.future)
         .slice()
         .sort((a, b) => new Date(a.date) - new Date(b.date));
     if (!sorted.length) return null;
@@ -140,10 +165,21 @@ export const buildInsights = (calendar) => {
     // Streak still alive at the end of the window; a zero on the final
     // day doesn't break it — that day may simply not be over yet.
     let currentStreak = 0;
+    let reachedStart = true;
     for (let i = sorted.length - 1; i >= 0; i -= 1) {
         if (sorted[i].count > 0) currentStreak += 1;
         else if (i === sorted.length - 1) continue;
-        else break;
+        else {
+            reachedStart = false;
+            break;
+        }
+    }
+    // Unbroken back to Jan 1: keep counting into the previous year.
+    if (reachedStart) {
+        for (const day of calendar?.priorDays || []) {
+            if (day.count <= 0) break;
+            currentStreak += 1;
+        }
     }
 
     const weekdayTotals = Array(7).fill(0);

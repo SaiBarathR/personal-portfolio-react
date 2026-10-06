@@ -26,7 +26,6 @@ export default function Activity() {
 
     const insights = useMemo(() => buildInsights(calendar), [calendar]);
     const total = calendar?.total ?? 0;
-    const periodLabel = calendar?.rolling ? "last 12 months" : String(year);
 
     return (
         <section className="fixed left-5 right-5 bottom-5 top-28 xl:top-36 overflow-y-scroll scrollbar-hide">
@@ -65,7 +64,7 @@ export default function Activity() {
                                     <CountUp value={total} duration={1.8} />
                                 </p>
                                 <p className="mt-2 text-[11px] uppercase tracking-[0.22em] opacity-50">
-                                    contributions · {periodLabel}
+                                    contributions · {year}
                                 </p>
                             </>
                         )}
@@ -116,7 +115,7 @@ export default function Activity() {
                             <div className="mt-10 md:mt-12">
                                 <ActivityPulse
                                     insights={insights}
-                                    rolling={Boolean(calendar?.rolling)}
+                                    current={Boolean(calendar?.current)}
                                     loading={loading}
                                 />
                             </div>
