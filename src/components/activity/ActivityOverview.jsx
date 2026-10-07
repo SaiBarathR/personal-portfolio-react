@@ -90,12 +90,15 @@ export default function ActivityOverview({ overview, loading }) {
                         {topRepos.map((repo, index) => {
                             const share = repo.count / maxRepoCount;
                             const pct = repoTotal > 0 ? Math.round((repo.count / repoTotal) * 100) : 0;
+                            // Private repositories are listed without a link.
+                            const Row = repo.url ? "a" : "div";
+                            const linkProps = repo.url
+                                ? { href: repo.url, target: "_blank", rel: "noreferrer" }
+                                : {};
                             return (
                                 <li key={repo.name}>
-                                    <a
-                                        href={repo.url}
-                                        target="_blank"
-                                        rel="noreferrer"
+                                    <Row
+                                        {...linkProps}
                                         className="text-btn group grid grid-cols-[1.5rem_minmax(0,1fr)_auto] md:grid-cols-[2.25rem_minmax(0,1fr)_auto] items-baseline gap-x-3 md:gap-x-4 py-4"
                                     >
                                         <span className="font-NeueMontrealMono text-[11px] tabular-nums opacity-30">
@@ -104,9 +107,11 @@ export default function ActivityOverview({ overview, loading }) {
                                         <span className="min-w-0">
                                             <span className="block text-base md:text-lg tracking-wide truncate">
                                                 {repo.name.split("/").pop()}
-                                                <span className="inline-block ml-2 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300">
-                                                    ↗
-                                                </span>
+                                                {repo.url && (
+                                                    <span className="inline-block ml-2 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-300">
+                                                        ↗
+                                                    </span>
+                                                )}
                                             </span>
                                             <span className="block mt-2.5 h-px bg-current/10 overflow-hidden">
                                                 <motion.span
@@ -130,7 +135,7 @@ export default function ActivityOverview({ overview, loading }) {
                                             {repo.count.toLocaleString()}
                                             <span className="opacity-50 hidden md:inline"> · {pct}%</span>
                                         </span>
-                                    </a>
+                                    </Row>
                                 </li>
                             );
                         })}

@@ -36,7 +36,7 @@ export default function Activity() {
                             ■ Activity
                         </h2>
                         <p className="mt-3 max-w-sm text-sm leading-relaxed opacity-60">
-                            A live read of public GitHub work — density, rhythm, shape, and
+                            A live read of GitHub work — density, rhythm, shape, and
                             recent motion across{" "}
                             <a
                                 className="text-btn underline underline-offset-4 decoration-current/30"

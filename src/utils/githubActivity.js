@@ -1,6 +1,7 @@
 // Shapes GitHub REST events + GraphQL contributions into UI-ready activity data.
 
 const GITHUB_BASE = "https://github.com";
+const PRIVATE_REPO_LABEL = "Private repository";
 
 export const relativeTime = (isoDate) => {
     if (!isoDate) return "";
@@ -53,6 +54,8 @@ const humanizeType = (type = "") =>
 
 const repoFromEvent = (event) => {
     const fullName = event?.repo?.name || "";
+    // Private events arrive pre-masked: a label to show, nothing to link to.
+    if (event?.public === false) return { fullName, name: fullName, url: null };
     return {
         fullName,
         name: fullName ? fullName.split("/").pop() : "",
@@ -260,6 +263,21 @@ export const buildOverview = (collection) => {
             repoMap.set(repo.name, { ...repo });
         }
     });
+
+    // GitHub reports private work only as an anonymous total: one unlinked row.
+    const privateCount = collection?.restrictedContributionsCount || 0;
+    if (privateCount > 0) {
+        const existing = repoMap.get(PRIVATE_REPO_LABEL);
+        if (existing) {
+            existing.count += privateCount;
+        } else {
+            repoMap.set(PRIVATE_REPO_LABEL, {
+                name: PRIVATE_REPO_LABEL,
+                url: "",
+                count: privateCount,
+            });
+        }
+    }
 
     const repositories = Array.from(repoMap.values()).sort((a, b) => b.count - a.count);
 
@@ -600,7 +618,10 @@ export const buildYearSummaryTimeline = (overview, year) => {
     if (!overview?.repositories?.length && !overview?.total) return [];
 
     const groups = [];
-    const repos = overview.repositories || [];
+    // The private row is an untyped total, not commits — keep it out of the headline.
+    const repos = (overview.repositories || []).filter(
+        (repo) => repo.name !== PRIVATE_REPO_LABEL
+    );
     if (overview.commits > 0 && repos.length) {
         groups.push({
             id: `${year}-year-commits`,

@@ -14,7 +14,8 @@ export default function useProjects() {
         try {
             const [reposResult, eventsResult] = await Promise.allSettled([
                 GitService.getRepos(),
-                GitService.getUserEventsPages(3),
+                // Projects are public-only, so private events would just crowd the feed.
+                GitService.getUserEventsPages(3, { publicOnly: true }),
             ]);
 
             const resp = reposResult.status === "fulfilled" ? reposResult.value : null;
