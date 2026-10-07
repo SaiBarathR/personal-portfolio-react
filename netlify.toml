@@ -10,5 +10,5 @@ node_bundler = "esbuild"
 
 [dev]
 framework = "vite"
-command = "npm start"
+command = "npm start -- --no-open"
 targetPort = 5173

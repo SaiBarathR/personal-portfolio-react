@@ -24,9 +24,9 @@ const GitService = (function () {
         return service.get("repos");
     };
 
-    service.getUserEventsPages = async function (pages = 3) {
+    service.getUserEventsPages = async function (pages = 3, { publicOnly = false } = {}) {
         try {
-            return await service.get("events", { pages });
+            return await service.get("events", { pages, ...(publicOnly && { public: 1 }) });
         } catch (error) {
             console.log(error);
             return [];

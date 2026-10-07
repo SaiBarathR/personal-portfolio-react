@@ -6,10 +6,27 @@ import { gitConfig } from "../../src/utils/config.js";
 
 const PRIVATE_REPO_LABEL = "Private repository";
 const FIRST_YEAR = 2008;
-const MAX_EVENT_PAGES = 3;
 
 const baseUrl = gitConfig.gitBaseUrl;
 const username = gitConfig.gitUserName;
+
+// Every accepted URL is canonical, so callers can't mint fresh cache keys
+// (and fresh GitHub calls) by varying or padding the query string.
+const PARAMS = {
+    contributions: { year: /^\d{4}$/, previousYear: /^1$/ },
+    events: { pages: /^[1-3]$/, public: /^1$/ },
+    repos: {},
+};
+
+const isCanonical = (params) => {
+    const allowed = PARAMS[params.get("op")];
+    if (!allowed) return false;
+    const keys = [...params.keys()];
+    return (
+        new Set(keys).size === keys.length &&
+        keys.every((key) => key === "op" || allowed[key]?.test(params.get(key)))
+    );
+};
 
 const json = (body, status = 200) =>
     new Response(JSON.stringify(body), {
@@ -149,15 +166,19 @@ const maskPrivateEvent = (event) => {
     };
 };
 
-const getEvents = async (pages) => {
-    // Authenticated as the user, this feed includes private events too.
-    const batches = await Promise.all(
+const getEvents = async (pages, publicOnly) => {
+    // Authenticated as the user, the full feed includes private events too.
+    const feed = publicOnly ? "events/public" : "events";
+    const batches = await Promise.allSettled(
         Array.from({ length: pages }, (_, i) =>
-            github(`/users/${username}/events?per_page=30&page=${i + 1}`)
+            github(`/users/${username}/${feed}?per_page=30&page=${i + 1}`)
         )
     );
-    return batches
-        .flat()
+    // One failed page shouldn't discard the pages that did load.
+    const loaded = batches.filter((batch) => batch.status === "fulfilled");
+    if (!loaded.length) throw batches[0].reason;
+    return loaded
+        .flatMap((batch) => batch.value)
         .map((event) => (event.public === false ? maskPrivateEvent(event) : event));
 };
 
@@ -194,28 +215,24 @@ export default async (request) => {
     }
 
     const params = new URL(request.url).searchParams;
+    if (!isCanonical(params)) return json({ message: "Invalid request" }, 400);
 
     try {
         switch (params.get("op")) {
             case "contributions": {
                 const year = Number(params.get("year"));
                 const currentYear = new Date().getUTCFullYear();
-                if (!Number.isInteger(year) || year < FIRST_YEAR || year > currentYear + 1) {
+                if (year < FIRST_YEAR || year > currentYear + 1) {
                     return json({ message: "Invalid year" }, 400);
                 }
                 return json(await getContributions(year, params.has("previousYear")));
             }
-            case "events": {
-                const pages = Number(params.get("pages") || 1);
-                if (!Number.isInteger(pages) || pages < 1 || pages > MAX_EVENT_PAGES) {
-                    return json({ message: "Invalid pages" }, 400);
-                }
-                return json(await getEvents(pages));
-            }
-            case "repos":
-                return json(await getRepos());
+            case "events":
+                return json(
+                    await getEvents(Number(params.get("pages") || 1), params.has("public"))
+                );
             default:
-                return json({ message: "Unknown operation" }, 400);
+                return json(await getRepos());
         }
     } catch (error) {
         console.error(error);

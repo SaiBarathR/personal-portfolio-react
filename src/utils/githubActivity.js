@@ -618,7 +618,10 @@ export const buildYearSummaryTimeline = (overview, year) => {
     if (!overview?.repositories?.length && !overview?.total) return [];
 
     const groups = [];
-    const repos = overview.repositories || [];
+    // The private row is an untyped total, not commits — keep it out of the headline.
+    const repos = (overview.repositories || []).filter(
+        (repo) => repo.name !== PRIVATE_REPO_LABEL
+    );
     if (overview.commits > 0 && repos.length) {
         groups.push({
             id: `${year}-year-commits`,
