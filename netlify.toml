@@ -4,3 +4,11 @@ NPM_FLAGS = "--force"
 [build]
 publish = "build"
 
+[functions]
+directory = "netlify/functions"
+node_bundler = "esbuild"
+
+[dev]
+framework = "vite"
+command = "npm start"
+targetPort = 5173

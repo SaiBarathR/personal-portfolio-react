@@ -107,7 +107,7 @@ export default function ContributionTimeline({ timeline, year, loading, needBold
                     the commit stream...
                 </p>
             ) : items.length === 0 ? (
-                <p className="opacity-50 text-sm text-right">No public signal for {year}.</p>
+                <p className="opacity-50 text-sm text-right">No signal for {year}.</p>
             ) : (
                 <div className="flex flex-col items-end gap-10 md:gap-14">
                     {items.map((group, index) => {
