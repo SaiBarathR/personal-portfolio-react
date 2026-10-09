@@ -135,10 +135,15 @@ function MonthlyFlow({ monthly, peakMonth }) {
                 </svg>
                 {peakIndex >= 0 && (
                     <motion.span
-                        className="absolute w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current"
+                        className="absolute w-2 h-2 rounded-full bg-current"
+                        // Centred through motion's x/y: its scale animation
+                        // writes an inline transform that would override
+                        // Tailwind's translate classes.
                         style={{
                             left: `${(points[peakIndex][0] / width) * 100}%`,
                             top: `${(points[peakIndex][1] / height) * 100}%`,
+                            x: "-50%",
+                            y: "-50%",
                         }}
                         initial={reduced ? false : { opacity: 0, scale: 0 }}
                         whileInView={{ opacity: 1, scale: 1 }}
