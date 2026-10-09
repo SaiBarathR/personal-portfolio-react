@@ -18,6 +18,7 @@ name or link.
 - Set `GIT_PERSONAL_KEY` in Netlify (Site configuration → Environment
   variables) and in a local `.env`. Do not prefix it with `VITE_` — that would
   bundle it into the browser code.
-- Run locally with `npm run dev` (needs the Netlify CLI: `npm i -g netlify-cli`),
-  which serves the site and the function on http://localhost:8888.
-  Plain `npm start` runs the UI without GitHub data.
+- Run locally with `npm start` (http://localhost:5173): the Vite dev server
+  runs the function itself, reading the token from `.env`.
+- `npm run dev` runs the real Netlify runtime instead (needs the Netlify CLI:
+  `npm i -g netlify-cli`) and serves the site on http://localhost:8888.
