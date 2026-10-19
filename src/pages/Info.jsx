@@ -17,6 +17,7 @@ export default function Info() {
                         <li><a className="text-btn " href="https://github.com/SaiBarathR" target="_blank" rel="noopener noreferrer">GitHub ↗</a></li>
                         <li><a className="text-btn " href="https://linkedin.com/in/saibarathr" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
                         <li><a className="text-btn " href="https://www.npmjs.com/~saibarath" target="_blank" rel="noopener noreferrer">NPM ↗</a></li>
+                        <li><a className="text-btn " href="https://saibarath.space" target="_blank" rel="noopener noreferrer">Homelab ↗</a></li>
 
                     </ul>
                 </div>
