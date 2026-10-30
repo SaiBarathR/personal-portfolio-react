@@ -3,6 +3,16 @@ import { motion, useReducedMotion } from "framer-motion";
 import { EASE } from "./ease";
 
 const DAY_LABELS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+// Revealed with a clip, not pathLength: dashes on a non-scaling stroke are
+// measured in screen pixels, so a stretched chart never draws its last stretch.
+// Negative insets leave room for the stroke at the chart's edges.
+const LINE_REVEAL = {
+    hidden: { clipPath: "inset(-5% 100% -5% 0%)" },
+    shown: {
+        clipPath: "inset(-5% -5% -5% 0%)",
+        transition: { duration: 1.6, ease: EASE },
+    },
+};
 
 function WeekdayCadence({ weekdayTotals }) {
     const reduced = useReducedMotion();
@@ -107,11 +117,15 @@ function MonthlyFlow({ monthly, peakMonth }) {
             </div>
 
             <div className="relative">
-                <svg
+                {/* The svg triggers the reveal: a fully clipped line is never in view. */}
+                <motion.svg
                     viewBox={`0 0 ${width} ${height}`}
                     className="w-full h-36 md:h-44 overflow-visible"
                     preserveAspectRatio="none"
                     aria-hidden="true"
+                    initial={reduced ? false : "hidden"}
+                    whileInView="shown"
+                    viewport={{ once: true, margin: "-40px" }}
                 >
                     <motion.path
                         d={area}
@@ -127,12 +141,9 @@ function MonthlyFlow({ monthly, peakMonth }) {
                         stroke="currentColor"
                         strokeWidth="1.5"
                         vectorEffect="non-scaling-stroke"
-                        initial={reduced ? false : { pathLength: 0 }}
-                        whileInView={{ pathLength: 1 }}
-                        viewport={{ once: true, margin: "-40px" }}
-                        transition={{ duration: 1.6, ease: EASE }}
+                        variants={LINE_REVEAL}
                     />
-                </svg>
+                </motion.svg>
                 {peakIndex >= 0 && (
                     <motion.span
                         className="absolute w-2 h-2 rounded-full bg-current"
