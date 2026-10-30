@@ -245,7 +245,16 @@ export const buildOverview = (collection) => {
     const pullRequests = collection?.totalPullRequestContributions || 0;
     const issues = collection?.totalIssueContributions || 0;
     const reviews = collection?.totalPullRequestReviewContributions || 0;
-    const total = commits + pullRequests + issues + reviews;
+    const typed = commits + pullRequests + issues + reviews;
+    // GitHub reports private work only as an anonymous total, untyped.
+    const privateCount = collection?.restrictedContributionsCount || 0;
+    // The calendar is the headline total. It also counts repositories created
+    // and a few things no field exposes, so whatever remains is shown as other.
+    const total = Math.max(
+        collection?.contributionCalendar?.totalContributions || 0,
+        typed + privateCount
+    );
+    const other = total - typed - privateCount;
 
     const pct = (value) => (total > 0 ? Math.round((value / total) * 100) : 0);
 
@@ -264,8 +273,7 @@ export const buildOverview = (collection) => {
         }
     });
 
-    // GitHub reports private work only as an anonymous total: one unlinked row.
-    const privateCount = collection?.restrictedContributionsCount || 0;
+    // Private work gets one unlinked row.
     if (privateCount > 0) {
         const existing = repoMap.get(PRIVATE_REPO_LABEL);
         if (existing) {
@@ -286,15 +294,19 @@ export const buildOverview = (collection) => {
         pullRequests,
         issues,
         reviews,
+        private: privateCount,
+        other,
         total,
         percents: {
             commits: pct(commits),
             pullRequests: pct(pullRequests),
             issues: pct(issues),
             reviews: pct(reviews),
+            private: pct(privateCount),
+            other: pct(other),
         },
         repositories,
-        repoCount: collection?.totalRepositoriesWithContributedCommits || repositories.length,
+        publicRepoCount: repositories.filter((repo) => repo.url).length,
     };
 };
 
