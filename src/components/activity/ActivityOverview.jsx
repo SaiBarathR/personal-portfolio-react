@@ -4,9 +4,11 @@ import { EASE } from "./ease";
 
 const METRICS = [
     { key: "commits", label: "Commits", opacity: 1 },
-    { key: "pullRequests", label: "Pull requests", opacity: 0.6 },
+    { key: "pullRequests", label: "Pull requests", opacity: 0.72 },
+    { key: "private", label: "Private", opacity: 0.5 },
     { key: "issues", label: "Issues", opacity: 0.35 },
-    { key: "reviews", label: "Reviews", opacity: 0.18 },
+    { key: "reviews", label: "Reviews", opacity: 0.24 },
+    { key: "other", label: "Repos & other", opacity: 0.15 },
 ];
 
 export default function ActivityOverview({ overview, loading }) {
@@ -25,7 +27,6 @@ export default function ActivityOverview({ overview, loading }) {
     const segments = METRICS.filter((metric) => (overview[metric.key] || 0) > 0);
     const topRepos = overview.repositories.slice(0, 6);
     const maxRepoCount = Math.max(...topRepos.map((repo) => repo.count), 1);
-    const repoTotal = overview.repositories.reduce((sum, repo) => sum + repo.count, 0);
 
     return (
         <div className="space-y-14 md:space-y-16">
@@ -49,7 +50,7 @@ export default function ActivityOverview({ overview, loading }) {
                     ))}
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-8">
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-x-6 gap-y-8">
                     {METRICS.map((metric) => {
                         const count = overview[metric.key] || 0;
                         const pct = overview.percents?.[metric.key] || 0;
@@ -68,7 +69,7 @@ export default function ActivityOverview({ overview, loading }) {
                                     <CountUp value={count} />
                                 </p>
                                 <p className="mt-2 font-NeueMontrealMono text-[10px] tracking-[0.08em] opacity-40 tabular-nums">
-                                    {pct}% of the work
+                                    {pct === 0 && count > 0 ? "<1" : pct}% of the work
                                 </p>
                             </div>
                         );
@@ -83,13 +84,14 @@ export default function ActivityOverview({ overview, loading }) {
                             Most touched
                         </p>
                         <p className="font-NeueMontrealMono text-[11px] tabular-nums opacity-40">
-                            {overview.repoCount} repositories
+                            {overview.publicRepoCount} public{" "}
+                            {overview.publicRepoCount === 1 ? "repository" : "repositories"}
                         </p>
                     </div>
                     <ol>
                         {topRepos.map((repo, index) => {
                             const share = repo.count / maxRepoCount;
-                            const pct = repoTotal > 0 ? Math.round((repo.count / repoTotal) * 100) : 0;
+                            const pct = overview.total > 0 ? Math.round((repo.count / overview.total) * 100) : 0;
                             // Private repositories are listed without a link.
                             const Row = repo.url ? "a" : "div";
                             const linkProps = repo.url
