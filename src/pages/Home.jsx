@@ -6,7 +6,7 @@ export default function Home() {
   ]
 
   return (
-    <section className="block opacity-1 w-full min-h-[calc(100vh-4rem)] animate-appear-smooth">
+    <section className="block opacity-1 w-full animate-appear-smooth">
       <div className="absolute right-12 bottom-12 whitespace-nowrap">
         <p className="leading-[1.5] flex flex-col font-semibold">
           {description.map((item, index) => <span key={index}>{item}</span>)}
